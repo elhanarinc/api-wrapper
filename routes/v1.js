@@ -7,6 +7,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 import {getCountries} from '../controllers/countries';
+import {getCategories} from '../controllers/categories';
 
 // healthcheck
 router.get('/health', (req, res, next) => {
@@ -27,7 +28,12 @@ router.get('/countries', (req, res, next) => {
 
 // categories
 router.get('/categories', (req, res, next) => {
-  return res.status(200).json({'status': 'categories'});
+  getCategories(res, (response, err) => {
+    if (err) {
+      return res.status(500).json({'error': err});
+    }
+    return res.status(200).json(response);
+  });
 });
 
 

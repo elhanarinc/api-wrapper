@@ -11,7 +11,7 @@ i18n.configure({
   },
 });
 
-export const convertLanguage = (req, res, next) => {
+export const translationMiddleware = (req, res, next) => {
   const currentLocale = req.headers['accept-language'] || 'en';
   i18n.init(req, res);
   i18n.setLocale(currentLocale);
