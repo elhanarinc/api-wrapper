@@ -1,10 +1,10 @@
-import express from 'express';
+let express = require('express');
 let app = express();
 
-import {translationMiddleware} from './i18n';
-app.use('/api/V1', translationMiddleware);
+let i18n = require('./i18n');
+app.use('/api/V1', i18n.translationMiddleware);
 
-import v1Route from './routes/v1';
-app.use('/api/V1', v1Route);
+let v1Router = require('./routes/v1');
+app.use('/api/V1', v1Router);
 
-export default app;
+module.exports = app;

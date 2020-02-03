@@ -1,13 +1,13 @@
-import express from 'express';
-import bodyParser from 'body-parser';
+let express = require('express');
+let bodyParser = require('body-parser');
 
 let router = express.Router();
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
-import {getCountries} from '../controllers/countries';
-import {getCategories} from '../controllers/categories';
+let countriesController = require('../controllers/countries');
+let categoriesController = require('../controllers/categories');
 
 // healthcheck
 router.get('/health', (req, res, next) => {
@@ -17,7 +17,7 @@ router.get('/health', (req, res, next) => {
 
 // countries
 router.get('/countries', (req, res, next) => {
-  getCountries(res, (response, err) => {
+  countriesController.getCountries(res, (response, err) => {
     if (err) {
       return res.status(500).json({'error': err});
     }
@@ -28,7 +28,7 @@ router.get('/countries', (req, res, next) => {
 
 // categories
 router.get('/categories', (req, res, next) => {
-  getCategories(res, (response, err) => {
+  categoriesController.getCategories(res, (response, err) => {
     if (err) {
       return res.status(500).json({'error': err});
     }
@@ -49,4 +49,4 @@ router.post('/customers', (req, res, next) => {
 });
 
 
-export default router;
+module.exports = router;
