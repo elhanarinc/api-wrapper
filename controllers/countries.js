@@ -1,9 +1,9 @@
-let magentoUtil = require('../magento2');
+let magentoUtil = require('../utils/magento2');
 
 const COUNTRY_PATH = '/V1/directory/countries';
 
 module.exports = {
-  getCountries: function(res, next) {
+  getCountries: (res, next) => {
     magentoUtil.magentoGet(COUNTRY_PATH, null, (response, err) => {
       const modifiedCountries = [];
       response.forEach(country => {

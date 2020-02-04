@@ -1,4 +1,4 @@
-let client = require('../elasticclient');
+let client = require('../utils/elasticclient');
 
 module.exports = {
   getProducts: function(req, res, next) {

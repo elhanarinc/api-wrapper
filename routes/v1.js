@@ -1,6 +1,5 @@
 let express = require('express');
 let bodyParser = require('body-parser');
-
 let router = express.Router();
 
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -9,6 +8,10 @@ router.use(bodyParser.json());
 let countriesController = require('../controllers/countries');
 let categoriesController = require('../controllers/categories');
 let productsController = require('../controllers/products');
+let customersController = require('../controllers/customers');
+
+const { customerValidationRules, validate } = require('../utils/validator');
+
 
 // healthcheck
 router.get('/health', (req, res, next) => {
@@ -50,8 +53,20 @@ router.get('/products', (req, res, next) => {
 
 
 // customers
-router.post('/customers', (req, res, next) => {
-  return res.status(200).json({'status': 'OK'});
+router.post('/customers', customerValidationRules(), validate, (req, res, next) => {
+  customersController.createCustomer(req, res, (responseJson, err) => {
+    let responseObject = {};
+    if (err) {
+      responseObject['success'] = false;
+      responseObject['errors'] = {
+        backend: res.locale === 'en' ? err : res.translate(err)
+      };
+      return res.status(400).json(responseObject);
+    }
+    responseObject['success'] = true;
+    responseObject['id'] = responseJson;
+    return res.status(201).json(responseObject);
+  });
 });
 
 

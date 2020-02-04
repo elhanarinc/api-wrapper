@@ -1,4 +1,4 @@
-let magentoUtil = require('../magento2');
+let magentoUtil = require('../utils/magento2');
 
 const CATEGORY_PATH = '/V1/categories';
 
@@ -16,7 +16,7 @@ function convertName(res, data) {
 }
 
 module.exports = {
-  getCategories: function(res, next) {
+  getCategories: (res, next) => {
     magentoUtil.magentoGet(CATEGORY_PATH, null, (response, err) => {
       const modifiedCategories = convertName(res, response);
       return next(modifiedCategories, err);

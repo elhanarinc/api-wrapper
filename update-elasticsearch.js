@@ -1,5 +1,5 @@
-let magentoUtil = require('./magento2');
-let client = require('./elasticclient');
+let magentoUtil = require('./utils/magento2');
+let client = require('./utils/elasticclient');
 
 const ALL_PRODUCT_URL = '/V1/products';
 

@@ -5,5 +5,12 @@
   "Andorra": "Andora",
   "Default Category": "Standart Kategori",
   "What's New": "Yeni Ne Var",
-  "Jackets": "Ceketler"
+  "Jackets": "Ceketler",
+  "Email is not valid.": "Email gecerli degil.",
+  "Firstname is required.": "Firstname gerekli.",
+  "Lastname is required.": "Lastname gerekli.",
+  "Password min length is 5 and should be alphanumeric.": "Password en az 5 karakter ve alfanumerik olmali.",
+  "Internal Server Error": "Icsel Sunucu Hatasi.",
+  "A customer with the same email address already exists in an associated website.": "Ayni emaili olan kayitli bir kullanici zaten var.",
+  "Bad Request": "Gecersiz istek."
 }
