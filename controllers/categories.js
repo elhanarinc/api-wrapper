@@ -2,7 +2,7 @@ let magentoUtil = require('../utils/magento2');
 
 const CATEGORY_PATH = '/V1/categories';
 
-function convertName(res, data) {
+const convertName = (res, data) => {
   const modifiedData = data;
   modifiedData['name'] =  res.locale === 'en' ? data['name'] : res.translate(data['name']);
   if (modifiedData['children_data'] === []) {
