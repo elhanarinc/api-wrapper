@@ -8,6 +8,7 @@ router.use(bodyParser.json());
 
 let countriesController = require('../controllers/countries');
 let categoriesController = require('../controllers/categories');
+let productsController = require('../controllers/products');
 
 // healthcheck
 router.get('/health', (req, res, next) => {
@@ -39,7 +40,12 @@ router.get('/categories', (req, res, next) => {
 
 // products
 router.get('/products', (req, res, next) => {
-  return res.status(200).json({'status': 'products'});
+  productsController.getProducts(req, res, (response, err) => {
+    if (err) {
+      return res.status(500).json({'error': err});
+    }
+    return res.status(200).json(response);
+  })
 });
 
 
