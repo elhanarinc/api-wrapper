@@ -15,12 +15,13 @@ const axiosConfig = {
 };
 
 const insertCustomer = async (url, data) => {
-  try {
-    let res = await axios.post(url, data, axiosConfig);
-    return res.data;
-  } catch (e) {
-    return e.response.data;
-  }
+  return new Promise((resolve, reject) => {
+    axios.post(url, data, axiosConfig).then(response => {
+      resolve(response.data);
+    }).catch(e => {
+      reject(e.response.data);
+    });
+  });
 }
 
 if (argv.file === undefined) {
@@ -40,7 +41,7 @@ if (argv.file === undefined) {
     .on('headers', (headers) => {
       let difference = HEADERS.filter(x => !headers.includes(x));
       if (difference.length !== 0) {
-        throw new Error('csv headers are corrupt.');
+        throw new Error('csv headers are corrupt. Headers should contain "email", "firstname", "lastname", "password"');
       }
     })
     .on('data', (data) => {
@@ -51,8 +52,12 @@ if (argv.file === undefined) {
         let row = ROWS[i];
         console.log('Index: ', i);
         console.log('Row data:', row);
-        let result = await insertCustomer(urlPath + CUSTOMER_ENDPOINT, row);
-        console.log(result);
+        try {
+          let result = await insertCustomer(urlPath + CUSTOMER_ENDPOINT, row);
+          console.log(result);
+        } catch (e) {
+          console.log(e);
+        }
       }
     })
     .on('error', (error) => {
